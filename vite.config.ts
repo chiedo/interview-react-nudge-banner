@@ -10,5 +10,13 @@ export default defineConfig(({command}) => ({
     environment: 'jsdom',
     setupFiles: ['./src/test-setup.ts'],
     css: false,
+    // Primer ships .css imports inside its published modules; Vitest only
+    // transforms inlined deps with `css: false`, so inline Primer so its CSS
+    // imports are no-op'd instead of bubbling up as "Unknown file extension".
+    server: {
+      deps: {
+        inline: [/@primer\/react/],
+      },
+    },
   },
 }))
