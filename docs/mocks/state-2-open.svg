@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 256" width="760" height="256" role="img" aria-labelledby="title-2 desc-2" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <title id="title-2">NudgeBanner — install picker, dropdown open</title>
+  <desc id="desc-2">Full banner with the dropdown menu open below the trigger. Menu shows four methods: Install with Homebrew (selected, with a check mark and a highlighted row), Install with npm, Install with WinGet, Install with script. The trigger has a blue focus ring.</desc>
+
+  <!-- Banner background -->
+  <rect x="0.5" y="0.5" width="759" height="107" rx="8" fill="#f6f8fa" stroke="#d0d7de"/>
+
+  <!-- Icon tile -->
+  <rect x="16" y="16" width="32" height="32" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="32" y="37" font-size="16" text-anchor="middle" fill="#6e40c9">★</text>
+
+  <!-- Title + description -->
+  <text x="60" y="32" font-size="14" font-weight="600" fill="#1f2328">Get started with our CLI</text>
+  <text x="60" y="50" font-size="12" fill="#57606a">Install with your package manager.</text>
+
+  <!-- Control row: dropdown trigger (focused, blue ring) -->
+  <rect x="61" y="67" width="198" height="26" rx="5" fill="#ffffff" stroke="#0969da" stroke-width="2"/>
+  <text x="72" y="84" font-size="12" fill="#1f2328">Install with Homebrew</text>
+  <text x="248" y="84" font-size="10" fill="#57606a">▾</text>
+
+  <!-- Control row: monospace command -->
+  <rect x="270" y="66" width="320" height="28" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="282" y="84" font-size="12" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" fill="#1f2328">brew install our-cli</text>
+
+  <!-- Control row: Copy button -->
+  <rect x="600" y="66" width="72" height="28" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="636" y="84" font-size="12" text-anchor="middle" fill="#1f2328">Copy</text>
+
+  <!-- Dismiss × (top-right) -->
+  <text x="734" y="30" font-size="16" text-anchor="middle" fill="#57606a">×</text>
+
+  <!-- Popover menu (anchored under trigger, overflows below banner) -->
+  <!-- subtle shadow -->
+  <rect x="60" y="102" width="220" height="148" rx="8" fill="#1f2328" opacity="0.08"/>
+  <!-- menu surface -->
+  <rect x="60" y="100" width="220" height="148" rx="8" fill="#ffffff" stroke="#d0d7de"/>
+
+  <!-- Selected row highlight -->
+  <rect x="64" y="104" width="212" height="32" rx="4" fill="#ddf4ff"/>
+
+  <!-- Menu items -->
+  <text x="72" y="126" font-size="12" fill="#1f2328">Install with Homebrew</text>
+  <text x="268" y="126" font-size="12" text-anchor="end" fill="#0969da">✓</text>
+
+  <text x="72" y="158" font-size="12" fill="#1f2328">Install with npm</text>
+  <text x="72" y="190" font-size="12" fill="#1f2328">Install with WinGet</text>
+  <text x="72" y="222" font-size="12" fill="#1f2328">Install with script</text>
+</svg>

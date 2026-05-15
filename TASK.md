@@ -7,7 +7,7 @@ Your team is adding a new variant to `NudgeBanner`: when given a list of install
 1. **Make the new behavior additive.** Passing no `installMethods` must render *exactly* as the component does today. The existing test must still pass.
 
 2. **New optional props:**
-   - `installMethods?: Array<{ key: string; label: string; command: string }>`
+   - `installMethods?: Array<{ key: string; label: string; command: string }>` — `label` is the short name (e.g. `"Homebrew"`, `"npm"`); the component renders `"Install with {label}"` in both the dropdown trigger and the menu items.
    - `defaultMethod?: string | 'auto'` — defaults to `'auto'`. With `'auto'`, pick based on `navigator.platform`:
      - macOS → `homebrew` (if present, else first method)
      - Windows → `winget` (if present, else first method)

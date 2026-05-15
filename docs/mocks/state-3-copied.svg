@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 108" width="760" height="108" role="img" aria-labelledby="title-3 desc-3" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <title id="title-3">NudgeBanner — install picker, "Copied" success state</title>
+  <desc id="desc-3">Full banner identical to the collapsed state, except the Copy button is replaced by a green pill labeled "✓ Copied". The pill is announced via role="status" and reverts to "Copy" after 2 seconds.</desc>
+
+  <!-- Banner background -->
+  <rect x="0.5" y="0.5" width="759" height="107" rx="8" fill="#f6f8fa" stroke="#d0d7de"/>
+
+  <!-- Icon tile -->
+  <rect x="16" y="16" width="32" height="32" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="32" y="37" font-size="16" text-anchor="middle" fill="#6e40c9">★</text>
+
+  <!-- Title + description -->
+  <text x="60" y="32" font-size="14" font-weight="600" fill="#1f2328">Get started with our CLI</text>
+  <text x="60" y="50" font-size="12" fill="#57606a">Install with your package manager.</text>
+
+  <!-- Control row: dropdown trigger -->
+  <rect x="60" y="66" width="200" height="28" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="72" y="84" font-size="12" fill="#1f2328">Install with Homebrew</text>
+  <text x="248" y="84" font-size="10" fill="#57606a">▾</text>
+
+  <!-- Control row: monospace command -->
+  <rect x="270" y="66" width="320" height="28" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="282" y="84" font-size="12" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" fill="#1f2328">brew install our-cli</text>
+
+  <!-- Copy button replaced by "✓ Copied" success pill -->
+  <rect x="600" y="66" width="72" height="28" rx="6" fill="#dafbe1" stroke="#1a7f37"/>
+  <text x="636" y="84" font-size="12" text-anchor="middle" fill="#1a7f37">✓ Copied</text>
+
+  <!-- Dismiss × (top-right) -->
+  <text x="734" y="30" font-size="16" text-anchor="middle" fill="#57606a">×</text>
+</svg>
