@@ -2,6 +2,11 @@
 
 Your team is adding a new variant to `NudgeBanner`: when given a list of install methods, it should render an OS-aware dropdown + a monospace command + a copy button. You can see the desired final shape in `MOCK.md` (collapsed / open / copied states).
 
+| The experience today | The target experience |
+| -- | -- |
+| See [this](https://chiedo.github.io/interview-react-nudge-banner/) | See [this](./MOCK.md) |
+
+
 ## Requirements (in priority order)
 
 1. **Make the new behavior additive.** Passing no `installMethods` must render *exactly* as the component does today. The existing test must still pass.
