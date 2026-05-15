@@ -1,84 +1,52 @@
-# Mock — the three states of the install-picker variant
+# Mock — the install-picker variant of `NudgeBanner`
 
-These are structural mocks, not pixel-perfect designs. Match the shape and the behavior; don't worry about exact spacing or colors.
+Structural mocks, not pixel-perfect designs. Match the **shape** and the **behavior**; don't worry about exact spacing or colors.
 
-## State 1: Dropdown collapsed (default)
+The full requirements live in [`TASK.md`](./TASK.md). This file is the visual + interaction reference.
 
-```mermaid
-flowchart LR
-    subgraph Banner["NudgeBanner with installMethods"]
-      direction LR
-      I["★"] --- T["Get started with our CLI<br/>Install with your package manager."]
-      T --- D["[Install with Homebrew ▾]"]
-      D --- C["brew install our-cli"]
-      C --- B["[ Copy ]"]
-      B --- X["[ × ]"]
-    end
-```
+## The states
 
-```svg
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 110" width="760" height="110">
-  <rect x="0" y="0" width="760" height="110" fill="#f6f8fa" stroke="#d0d7de" rx="8"/>
-  <rect x="16" y="16" width="32" height="32" rx="6" fill="#fff" stroke="#d0d7de"/>
-  <text x="32" y="38" font-size="16" text-anchor="middle" fill="#6e40c9">★</text>
-  <text x="60" y="32" font-size="14" font-weight="600" fill="#1f2328">Get started with our CLI</text>
-  <text x="60" y="50" font-size="12" fill="#57606a">Install with your package manager.</text>
-  <rect x="60" y="64" width="180" height="28" rx="6" fill="#fff" stroke="#d0d7de"/>
-  <text x="72" y="82" font-size="12" fill="#1f2328">Install with Homebrew</text>
-  <text x="226" y="82" font-size="10" fill="#57606a">▾</text>
-  <rect x="248" y="64" width="220" height="28" rx="6" fill="#fff" stroke="#d0d7de"/>
-  <text x="260" y="82" font-size="12" font-family="monospace" fill="#1f2328">brew install our-cli</text>
-  <rect x="476" y="64" width="68" height="28" rx="6" fill="#fff" stroke="#d0d7de"/>
-  <text x="510" y="82" font-size="12" text-anchor="middle" fill="#1f2328">Copy</text>
-  <text x="720" y="32" font-size="16" fill="#57606a">×</text>
-</svg>
-```
+### 1. Dropdown collapsed (default)
 
-## State 2: Dropdown open
+![NudgeBanner with installMethods, dropdown collapsed: icon, title, description, dropdown trigger labeled "Install with Homebrew", monospace command "brew install our-cli", Copy button, dismiss × in the top-right corner.](./docs/mocks/state-1-collapsed.svg)
+
+### 2. Dropdown open
+
+![NudgeBanner with the dropdown menu open below the trigger. The menu lists four methods: "Install with Homebrew" (selected, with a check mark on a highlighted row), "Install with npm", "Install with WinGet", "Install with script". The trigger has a blue focus ring.](./docs/mocks/state-2-open.svg)
+
+### 3. "Copied" success (announced via `role="status"`, reverts after 2 s)
+
+![NudgeBanner identical to state 1 except the Copy button is replaced by a green pill labeled "✓ Copied".](./docs/mocks/state-3-copied.svg)
+
+### 4. Single method (`installMethods.length === 1`)
+
+![NudgeBanner with only one install method: the dropdown trigger is hidden; the command and Copy button render directly.](./docs/mocks/state-4-single-method.svg)
+
+## Interaction model
 
 ```mermaid
-flowchart LR
-    subgraph Banner["NudgeBanner — dropdown open"]
-      D["[Install with Homebrew ▾]"]
-      D --- M1["• Install with Homebrew (selected)"]
-      D --- M2["• Install with npm"]
-      D --- M3["• Install with WinGet"]
-      D --- M4["• Install with script"]
-    end
+stateDiagram-v2
+    [*] --> Collapsed
+    Collapsed --> Open: click dropdown trigger
+    Open --> Collapsed: pick a method (updates label + command)
+    Open --> Collapsed: click outside / press Esc
+    Collapsed --> Copied: click Copy (writeText, emit copy-{key})
+    Copied --> Collapsed: after 2s
+    note right of Copied
+      role="status" live region
+      announces "Copied"
+    end note
 ```
 
-```svg
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200" width="320" height="200">
-  <rect x="0" y="0" width="320" height="200" fill="transparent"/>
-  <rect x="0" y="0" width="200" height="28" rx="6" fill="#fff" stroke="#0969da" stroke-width="2"/>
-  <text x="12" y="18" font-size="12" fill="#1f2328">Install with Homebrew</text>
-  <text x="186" y="18" font-size="10" fill="#57606a">▾</text>
-  <rect x="0" y="34" width="220" height="158" rx="8" fill="#fff" stroke="#d0d7de"/>
-  <rect x="4" y="38" width="212" height="32" fill="#ddf4ff"/>
-  <text x="14" y="58" font-size="12" fill="#1f2328">Install with Homebrew ✓</text>
-  <text x="14" y="86" font-size="12" fill="#1f2328">Install with npm</text>
-  <text x="14" y="114" font-size="12" fill="#1f2328">Install with WinGet</text>
-  <text x="14" y="142" font-size="12" fill="#1f2328">Install with script</text>
-</svg>
-```
+- The dropdown trigger and the menu items both display `Install with {label}`.
+- Selecting a method updates the trigger label *and* the command, and emits `action: 'select-{key}'`.
+- Copy writes the current command to the clipboard and emits `action: 'copy-{key}'`. The success pill is rendered inside a `role="status"` live region and **must not** leak its timer if the component unmounts.
+- When `installMethods.length === 1`, the dropdown trigger is hidden entirely (state 4) — `select-*` events do not fire.
 
-## State 3: "Copied" success (2 seconds, then revert)
+## Schema reminder
 
-```mermaid
-flowchart LR
-    subgraph Banner["NudgeBanner — copied"]
-      C["brew install our-cli"]
-      C --- B["[ ✓ Copied ]"]
-    end
-```
+`installMethods: Array<{ key: string; label: string; command: string }>`
 
-```svg
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 36" width="340" height="36">
-  <rect x="0" y="0" width="220" height="28" rx="6" fill="#fff" stroke="#d0d7de"/>
-  <text x="12" y="18" font-size="12" font-family="monospace" fill="#1f2328">brew install our-cli</text>
-  <rect x="228" y="0" width="100" height="28" rx="6" fill="#dafbe1" stroke="#1a7f37"/>
-  <text x="278" y="18" font-size="12" text-anchor="middle" fill="#1a7f37">✓ Copied</text>
-</svg>
-```
-
-The "Copied" state should also be announced via `role="status"` so screen readers pick it up.
+- `key` — analytics suffix and stable identity (e.g. `homebrew`, `npm`, `winget`, `script`).
+- `label` — the **short** name (e.g. `"Homebrew"`, `"npm"`). The component renders `"Install with {label}"` in both the trigger and the menu items.
+- `command` — the exact string copied to the clipboard.
