@@ -1,5 +1,7 @@
 # Task — Extend `NudgeBanner` with an install-command picker
 
+> Please share your screen
+
 Your team is adding a new variant to `NudgeBanner`: when given a list of install methods, it should render an OS-aware dropdown + a monospace command + a copy button. You can see the desired final shape in `MOCK.md` (collapsed / open / copied states).
 
 | The experience today | The target experience |
