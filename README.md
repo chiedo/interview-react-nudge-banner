@@ -18,6 +18,4 @@ You don't need to be fast — your interviewer is watching how you think, prompt
 npm install        # install deps (StackBlitz does this for you)
 npm run dev        # start Vite dev server
 npm test           # run vitest once
-npm run test:watch # run vitest in watch mode
-npm run build      # type-check + production build
 ```
