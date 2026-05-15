@@ -2,6 +2,8 @@
 
 This is a small React + TypeScript starter for a 30-minute live coding interview.
 
+**🔗 Live preview of the starting state: <https://chiedo.github.io/interview-react-nudge-banner/>**
+
 ## Open this in a browser sandbox (no install needed)
 
 The fastest path — works with **no signup**:
