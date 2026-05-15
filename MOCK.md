@@ -22,26 +22,6 @@ The full requirements live in [`TASK.md`](./TASK.md). This file is the visual + 
 
 ![NudgeBanner with only one install method: the dropdown trigger is hidden; the command and Copy button render directly.](./docs/mocks/state-4-single-method.svg)
 
-## Interaction model
-
-```mermaid
-stateDiagram-v2
-    [*] --> Collapsed
-    Collapsed --> Open: click dropdown trigger
-    Open --> Collapsed: pick a method (updates label + command)
-    Open --> Collapsed: click outside / press Esc
-    Collapsed --> Copied: click Copy (writeText, emit copy-{key})
-    Copied --> Collapsed: after 2s
-    note right of Copied
-      role="status" live region
-      announces "Copied"
-    end note
-```
-
-- The dropdown trigger and the menu items both display `Install with {label}`.
-- Selecting a method updates the trigger label *and* the command, and emits `action: 'select-{key}'`.
-- Copy writes the current command to the clipboard and emits `action: 'copy-{key}'`. The success pill is rendered inside a `role="status"` live region and **must not** leak its timer if the component unmounts.
-- When `installMethods.length === 1`, the dropdown trigger is hidden entirely (state 4) — `select-*` events do not fire.
 
 ## Schema reminder
 
